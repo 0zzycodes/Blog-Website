@@ -24,14 +24,17 @@
       href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"
     />
     <!-- Material Kit CSS -->
-    <link href="assets/css/material-kit.css" rel="stylesheet" />
+    <link href="assets/css/material-kit.css?v=2.0.6" rel="stylesheet" />
     <!-- Bona -->
     <link href="assets/css/styles.css" rel="stylesheet" />
     <link href="assets/css/responsive.css" rel="stylesheet" />
+    <link href="assets/css/post-styles.css" rel="stylesheet" />
+
+    <link href="assets/css/post-responsive.css" rel="stylesheet" />
     <!-- Bona -->
   </head>
 
-  <body>
+  <body onload="getCategoryBlogs()">
     <nav
       class="navbar navbar-transparent navbar-color-on-scroll fixed-top navbar-expand-lg bg-dark"
       color-on-scroll="100"
@@ -56,7 +59,7 @@
         <div class="collapse navbar-collapse">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <a class="nav-link" href="index.html">
                 <i class="icon ion-md-home"></i> Home
               </a>
             </li>
@@ -129,16 +132,10 @@
               </div>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="about.html">
-                <!-- <i class="icon ion-md-contact"></i>  -->
-                About
-              </a>
+              <a class="nav-link" href="about.html"> About </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="contact.html">
-                <!-- <i class="icon ion-md-contact"></i>  -->
-                Contact
-              </a>
+              <a class="nav-link" href="contact.html"> Contact </a>
             </li>
           </ul>
         </div>
@@ -148,48 +145,28 @@
     <div
       class="page-header header-filter"
       data-parallax="false"
-      style="background-image: url('assets/img/contact2.jpg')"
+      style="background-image: url('assets/img/bg2.jpg')"
     >
       <div class="container">
         <div class="row">
           <div class="col-md-8 ml-auto mr-auto">
             <div class="brand text-center">
-              <h1>JIMOH'S BLOG</h1>
-              <h3 class="sub-title text-center">UNDER CONSTRUCTION</h3>
+              <h1 id="category-title"></h1>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="main ">
-      <div class="container">
-        <section class="blog-area section">
-          <h2 class="title">Latest Posts</h2>
-          <div class="container">
-            <div class="row" id="outputs"></div>
-            <!-- <div class="row" id="outputs">
-              <div class="col-lg-4 col-md-6">
-                <div class="card h-100">
-                  <div class="single-post post-style-1">
-                    <div class="blog-image"><img src="assets/img/ben-o-sullivan-382817.jpg" alt="Blog Image"></div>
-                    <h4 class="title"><a href="#"><b>How Did Van Gogh's Turbulent Mind Depict One of the Most Complex
-                      Concepts in Physics?</b></a></h4>
-                      <span class="badge display-2 badge-pill badge-danger">Danger</span>
-                    <ul class="post-footer">
-                      <li><a href="#"><i class="icon ion-md-heart"></i>57</a></li>
-                      <li><a href="#"><i class="icon ion-md-chatbubbles"></i>6</a></li>
-                      <li><a href="#"><i class="icon ion-md-eye"></i>138</a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div> -->
-            <a class="load-more-btn" href="#"><b>LOAD MORE</b></a>
-          </div>
-        </section>
+    <section class="post-area category">
+      <div class="blog-area section">
+        <h2 class="title">Latest Posts</h2>
+        <div class="container">
+          <div class="row" id="category-outputs"></div>
+        </div>
       </div>
-    </div>
+    </section>
+    <!-- post-area -->
 
     <footer>
       <div class="container">

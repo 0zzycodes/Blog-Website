@@ -1,23 +1,13 @@
-// Initialize Cloud Firestore through Firebase
-const firebaseConfig = {
-    apiKey: "AIzaSyBZSP7CF1qWOUtI7710O6eT_SJPzm2ow1k",
-    authDomain: "blog-test-cf27d.firebaseapp.com",
-    databaseURL: "https://blog-test-cf27d.firebaseio.com",
-    projectId: "blog-test-cf27d",
-    storageBucket: "blog-test-cf27d.appspot.com",
-    messagingSenderId: "712716765117",
-    appId: "1:712716765117:web:757aed783e2814d70eb4d4",
-    measurementId: "G-3E2DRSVVNM"
-};
-
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-const database = firebase.firestore();
 const Output = document.querySelector('#outputs')
-// window.addEventListener('load', () => {
-//     console.log('load')
-// })
-database.collection("blog").get().then((querySnapshot) => {
+const aTag = document.querySelectorAll('.dropdown-menu a')
+const categoryItem = document.querySelectorAll('.category-item')
+// console.log(window.location);
+// if (window.location.pathname === '/category-page.html')
+
+aTag.forEach(item => {
+    item.addEventListener('click', e => e.preventDefault())
+})
+const outputBlogPosts = querySnapshot => {
     querySnapshot.forEach((doc) => {
         const {
             title,
@@ -28,7 +18,8 @@ database.collection("blog").get().then((querySnapshot) => {
             image,
             tag
         } = doc.data()
-        Output.innerHTML += `
+        if (window.location.pathname === '/index.html')
+            Output.innerHTML += `
                 <div class="col-lg-4 col-md-6">
                     <div class="card h-100">
                         <div class="single-post post-style-1">
@@ -46,5 +37,32 @@ database.collection("blog").get().then((querySnapshot) => {
                     </div>
                 </div>
                 `
-    });
+    })
+}
+const getBlogByCategory = async () => {
+    const category = `${await localStorage.getItem('name')}`
+    let blog = []
+    database.collection("blog").where("tag", "==", category).get().then(querySnapshot => {
+        querySnapshot.forEach((doc) => {
+            blog.push(doc.data())
+        })
+        localStorage.setItem('category', JSON.stringify(blog))
+        window.location.pathname = '/category-page.html'
+    })
+}
+
+
+const changeRoute = name => {
+    localStorage.setItem('name', name)
+    // CategoryOutput.innerHTML = ''
+    return getBlogByCategory()
+}
+
+// categoryItem.forEach(item => {
+//     item.addEventListener('click', changeRoute)
+// })
+
+
+database.collection("blog").get().then((querySnapshot) => {
+    outputBlogPosts(querySnapshot)
 })
