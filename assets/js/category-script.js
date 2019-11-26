@@ -13,15 +13,17 @@ const getCategoryBlogs = () => {
             comments,
             content,
             image,
-            tag
+            tag,
+            updated_at
         } = doc
+        const comment = comments ? Object.keys(comments).length : 0
         CategoryOutput.innerHTML += `
         <div class="col-lg-4 col-md-6">
             <div class="card h-100">
                 <div class="single-post post-style-1">
                     <div class="blog-image"><img src=${image}></div>
                     <div class="blog-info">
-                        <h4 class="title"><a href="#"><b>${title}</b></a></h4>
+                        <h4 class="title"><a href="#" onclick="setPost('${title}', '${likes}', '${views}', '${updated_at}', '${comment}', '${image}', '${tag}', '${content}')"><b>${title}</b></a></h4>
                     <span class="badge badge-pill badge-warning">${tag}</span>
                         <ul class="post-footer">
                             <li><a href="#"><i class="icon ion-md-heart"></i>${likes}</a></li>

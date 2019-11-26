@@ -1,20 +1,3 @@
-/*
-====================================================
-
-* 	[Master Stylesheet]
-	
-	Theme Name :  
-	Version    :  
-	Author     :  
-	Author URI :  
-
-====================================================
-
-
-/* ---------------------------------
-1. PRIMARY STYLES
---------------------------------- */
-
 html {
   font-size: 100%;
   height: 100%;
@@ -23,7 +6,7 @@ html {
 }
 
 body {
-  font-size: 15px;
+  font-size: 16px;
   font-family: 'Roboto', sans-serif;
   width: 100%;
   height: 100%;
@@ -309,29 +292,12 @@ header .src-area .src-btn {
   right: 0;
   font-size: 1.8em;
 }
-
-/* ---------------------------------
-4. SLIDER
---------------------------------- */
-
-.slider {
-  height: 300px;
-  width: 100%;
-  background-image: url(../../images/slider-1.jpg);
-  background-size: cover;
-}
-
-/* ---------------------------------
-5. SINGLE POST
---------------------------------- */
-
 .blog-area .row div[class^='col'] {
   margin-bottom: 30px;
 }
 
 .blog-area {
   text-align: center;
-  /* background: #edf3f3; */
 }
 
 .blog-area .single-post {
@@ -394,7 +360,7 @@ header .src-area .src-btn {
   display: inline-block;
   margin-right: 10px;
   opacity: 0.6;
-  font-size: 1.1em;
+  font-size: 1.2em;
 }
 
 /* ---------------------------------
@@ -404,6 +370,9 @@ header .src-area .src-btn {
 .post-style-1 .blog-image {
   max-height: 100%;
   overflow: hidden;
+}
+.post-style-1 ul {
+  margin: 0;
 }
 
 /* ---------------------------------
@@ -416,7 +385,10 @@ header .src-area .src-btn {
 }
 
 .blog-area .post-style-2 .title {
-  padding: 15px 0px 10px;
+  padding: 10px 0px 5px;
+}
+.blog-area .post-style-1 .title a {
+  font-size: 25px;
 }
 
 .post-style-2 .avatar-area {

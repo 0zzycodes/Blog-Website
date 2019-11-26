@@ -1,12 +1,23 @@
 const Output = document.querySelector('#outputs')
 const aTag = document.querySelectorAll('.dropdown-menu a')
 const categoryItem = document.querySelectorAll('.category-item')
-// console.log(window.location);
-// if (window.location.pathname === '/category-page.html')
-
 aTag.forEach(item => {
     item.addEventListener('click', e => e.preventDefault())
 })
+const setPost = (title, likes, views, updated_at, comment, image, tag, content) => {
+    const post = {
+        title,
+        likes,
+        views,
+        updated_at,
+        comment,
+        image,
+        tag,
+        content
+    }
+    localStorage.setItem('post', JSON.stringify(post))
+    window.location.pathname = '/post-page.html'
+}
 const outputBlogPosts = querySnapshot => {
     querySnapshot.forEach((doc) => {
         const {
@@ -16,8 +27,10 @@ const outputBlogPosts = querySnapshot => {
             comments,
             content,
             image,
-            tag
+            tag,
+            updated_at
         } = doc.data()
+        const comment = comments ? Object.keys(comments).length : 0
         if (window.location.pathname === '/index.html')
             Output.innerHTML += `
                 <div class="col-lg-4 col-md-6">
@@ -25,11 +38,11 @@ const outputBlogPosts = querySnapshot => {
                         <div class="single-post post-style-1">
                             <div class="blog-image"><img src=${image}></div>
                             <div class="blog-info">
-                                <h4 class="title"><a href="#"><b>${title}</b></a></h4>
-                            <span class="badge badge-pill badge-warning">${tag}</span>
+                                <h4 class="title" id="post-link"><a href="post-page.html" onclick="setPost('${title}', '${likes}', '${views}', '${updated_at.seconds}', '${comment}', '${image}', '${tag}', '${content}')"><b>${title}</b></a></h4>
+                                <span class="badge badge-pill badge-primary">${tag}</span>
                                 <ul class="post-footer">
                                     <li><a href="#"><i class="icon ion-md-heart"></i>${likes}</a></li>
-                                    <li><a href="#"><i class="icon ion-md-chatbubbles"></i>${ comments?Object.keys(comments).length: 0 }</a></li>
+                                    <li><a href="#"><i class="icon ion-md-chatbubbles"></i>${comment }</a></li>
                                     <li><a href="#"><i class="icon ion-md-eye"></i>${views}</a></li>
                                 </ul>
                             </div>
@@ -37,8 +50,14 @@ const outputBlogPosts = querySnapshot => {
                     </div>
                 </div>
                 `
+        const postATag = document.querySelectorAll('.single-post a')
+        postATag.forEach(item => {
+            item.addEventListener('click', e => e.preventDefault())
+        })
+
     })
 }
+
 const getBlogByCategory = async () => {
     const category = `${await localStorage.getItem('name')}`
     let blog = []
