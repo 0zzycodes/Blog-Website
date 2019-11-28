@@ -7,6 +7,8 @@ const blogImage = document.querySelector('.post-image')
 const blogContent = document.querySelector('#blog-content')
 const blogTag = document.querySelector('#blog-tag')
 const pageTag = document.querySelector('#page-tag')
+const blogLikes = document.querySelector('#blog-likes')
+const blogComments = document.querySelector('#blog-comments')
 
 const getFullPost = async () => {
     const post = JSON.parse(localStorage.getItem('post'))
@@ -23,11 +25,12 @@ const getFullPost = async () => {
     } = post
 
     const convertedDate = new Date(updated_at * 1000).toUTCString()
-
     pageTag.textContent = tag.toUpperCase()
     blogTitle.textContent = title;
     blogContent.textContent = content;
-    blogTag.textContent = tag.toUpperCase();
+    blogLikes.textContent = likes;
+    blogComments.textContent = comment;
+    blogTag.innerHTML = `<small>CATEGORY: </small>${tag.toUpperCase()}`;
     authorImage.innerHTML = `<img src="${image}" alt="Profile Image">`
     blogImage.innerHTML = `<img src="${image}" alt="Blog Image" id="blog-image">`
     blogDate.forEach(item => item.textContent = convertedDate)

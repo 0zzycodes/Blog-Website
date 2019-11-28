@@ -365,6 +365,7 @@ header .src-area .src-btn {
 
 .main-post .title {
   margin-bottom: 30px;
+  text-transform: capitalize;
 }
 
 .main-post .para {

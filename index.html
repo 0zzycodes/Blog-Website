@@ -5,16 +5,17 @@
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
-      name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    name="viewport"
     />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <!--     Fonts and icons     -->
     <link
-      rel="stylesheet"
-      type="text/css"
-      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons"
+    rel="stylesheet"
+    type="text/css"
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons"
     />
+    <link href="//cdn-images.mailchimp.com/embedcode/slim-10_7.css" rel="stylesheet" type="text/css">
     <link
       href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css"
       rel="stylesheet"
@@ -31,7 +32,7 @@
     <!-- Bona -->
   </head>
 
-  <body>
+  <body onload="getDataFromFirebase(4)">
     <nav
       class="navbar navbar-transparent navbar-color-on-scroll fixed-top navbar-expand-lg bg-dark"
       color-on-scroll="100"
@@ -106,14 +107,6 @@
                   href="category-page.html"
                   class="dropdown-item "
                   id="category-item"
-                  onclick="changeRoute('movie')"
-                >
-                  MOVIE
-                </a>
-                <a
-                  href="category-page.html"
-                  class="dropdown-item "
-                  id="category-item"
                   onclick="changeRoute('sport')"
                 >
                   SPORT
@@ -166,11 +159,13 @@
       <div class="container">
         <section class="blog-area section">
           <h2 class="title">Latest Posts</h2>
-          <div class="container">
+          <div class="container ">
             <div class="row" id="outputs"></div>
             <br />
             <br />
-            <a class="load-more-btn" href="#"><b>LOAD MORE</b></a>
+            <div class="prevent">
+                <a class="load-more-btn" href="#" id="load-more"><b>LOAD MORE</b></a>
+            </div>
           </div>
         </section>
       </div>
@@ -181,6 +176,7 @@
         <div class="row">
           <div class="col-lg-4 col-md-6">
             <div class="footer-section">
+                <h4 class="title"><b>CONTACT</b></h4>
               <p class="copyright">Jimoh @ 2019. All rights reserved.</p>
               <a href="#"><i class="icon ion-logo-facebook"></i></a>
               <a href="#"><i class="icon ion-logo-twitter"></i></a>
@@ -192,17 +188,16 @@
             <div class="footer-section">
               <h4 class="title"><b>CATAGORIES</b></h4>
               <ul>
-                <li><a href="#">BEAUTY</a></li>
-                <li><a href="#">HEALTH</a></li>
-                <li><a href="#">MUSIC</a></li>
+                <li><a href="category-page.html" onclick="changeRoute('anime')">ANIME</a></li>
+                <li><a href="category-page.html" onclick="changeRoute('health')">HEALTH</a></li>
+                <li><a href="category-page.html" onclick="changeRoute('music')">MUSIC</a></li>
               </ul>
               <ul>
-                <li><a href="#">SPORT</a></li>
-                <li><a href="#">DESIGN</a></li>
-                <li><a href="#">TRAVEL</a></li>
+                <li><a href="#" onclick="changeRoute('sport')">SPORT</a></li>
+                <li><a href="category-page.html" onclick="changeRoute('design')">DESIGN</a></li>
+                <li><a href="category-page.html" onclick="changeRoute('travel')">TRAVEL</a></li>
               </ul>
             </div>
-            <!-- footer-section -->
           </div>
           <!-- col-lg-4 col-md-6 -->
 
@@ -210,16 +205,12 @@
             <div class="footer-section">
               <h4 class="title"><b>SUBSCRIBE</b></h4>
               <div class="input-area">
-                <form>
-                  <input
-                    class="email-input"
-                    type="text"
-                    placeholder="Enter your email"
-                  />
-                  <button class="submit-btn" type="submit">
-                    <i class="icon ion-ios-email-outline"></i>
-                  </button>
-                </form>
+                      <form action="https://netlify.us4.list-manage.com/subscribe/post?u=722e5b653b08356ded69be499&amp;id=e2ea2dbc16" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                        <input type="email" value="" name="EMAIL" class="email-input" id="mce-EMAIL" placeholder="Enter email" required>
+                        <button class="submit-btn submit" id="mc-embedded-subscribe" type="submit">
+                            <i class="icon ion-md-mail"></i></i>
+                        </button>
+                      </form>
               </div>
             </div>
             <!-- footer-section -->
@@ -256,3 +247,8 @@
 
   </body>
 </html>
+
+<!-- 
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; }
+</style> -->

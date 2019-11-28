@@ -105,14 +105,6 @@
                   href="category-page.html"
                   class="dropdown-item "
                   id="category-item"
-                  onclick="changeRoute('movie')"
-                >
-                  MOVIE
-                </a>
-                <a
-                  href="category-page.html"
-                  class="dropdown-item "
-                  id="category-item"
                   onclick="changeRoute('sport')"
                 >
                   SPORT
@@ -160,6 +152,7 @@
         <div class="row">
           <div class="col-lg-4 col-md-6">
             <div class="footer-section">
+              <h4 class="title"><b>CONTACT</b></h4>
               <p class="copyright">Jimoh @ 2019. All rights reserved.</p>
               <a href="#"><i class="icon ion-logo-facebook"></i></a>
               <a href="#"><i class="icon ion-logo-twitter"></i></a>
@@ -171,14 +164,34 @@
             <div class="footer-section">
               <h4 class="title"><b>CATAGORIES</b></h4>
               <ul>
-                <li><a href="#">BEAUTY</a></li>
-                <li><a href="#">HEALTH</a></li>
-                <li><a href="#">MUSIC</a></li>
+                <li>
+                  <a href="category-page.html" onclick="changeRoute('anime')"
+                    >ANIME</a
+                  >
+                </li>
+                <li>
+                  <a href="category-page.html" onclick="changeRoute('health')"
+                    >HEALTH</a
+                  >
+                </li>
+                <li>
+                  <a href="category-page.html" onclick="changeRoute('music')"
+                    >MUSIC</a
+                  >
+                </li>
               </ul>
               <ul>
-                <li><a href="#">SPORT</a></li>
-                <li><a href="#">DESIGN</a></li>
-                <li><a href="#">TRAVEL</a></li>
+                <li><a href="#" onclick="changeRoute('sport')">SPORT</a></li>
+                <li>
+                  <a href="category-page.html" onclick="changeRoute('design')"
+                    >DESIGN</a
+                  >
+                </li>
+                <li>
+                  <a href="category-page.html" onclick="changeRoute('travel')"
+                    >TRAVEL</a
+                  >
+                </li>
               </ul>
             </div>
             <!-- footer-section -->
@@ -189,16 +202,12 @@
             <div class="footer-section">
               <h4 class="title"><b>SUBSCRIBE</b></h4>
               <div class="input-area">
-                <form>
-                  <input
-                    class="email-input"
-                    type="text"
-                    placeholder="Enter your email"
-                  />
-                  <button class="submit-btn" type="submit">
-                    <i class="icon ion-ios-email-outline"></i>
-                  </button>
-                </form>
+                  <form action="https://netlify.us4.list-manage.com/subscribe/post?u=722e5b653b08356ded69be499&amp;id=e2ea2dbc16" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                    <input type="email" value="" name="EMAIL" class="email-input" id="mce-EMAIL" placeholder="Enter email" required>
+                    <button class="submit-btn submit" id="mc-embedded-subscribe" type="submit">
+                        <i class="icon ion-md-mail"></i></i>
+                    </button>
+                  </form>
               </div>
             </div>
             <!-- footer-section -->
