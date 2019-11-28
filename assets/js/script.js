@@ -1,10 +1,21 @@
 const Output = document.querySelector('#outputs')
+const Loader = document.querySelector('#loader')
 const LoadMore = document.querySelector('#load-more')
 document.querySelectorAll('.dropdown-menu a').forEach(removeDefault)
 if (window.location.pathname === '/index.html')
     document.querySelector('.prevent a').addEventListener('click', e => e.preventDefault())
+if (window.location.pathname === '/post-page.html')
+    document.querySelector('.post-bottom-area a').addEventListener('click', e => e.preventDefault())
 document.querySelectorAll('.footer-section a', '.post-footer a').forEach(removeDefault)
 const categoryItem = document.querySelectorAll('.category-item')
+if (window.location.pathname === '/post-page.html')
+    document.querySelector('#blog-tag').addEventListener('click', (e) => {
+        console.log(e);
+
+        let routeName = e.target
+        console.log(routeName);
+
+    })
 
 function removeDefault(item) {
     item.addEventListener('click', e => e.preventDefault())
@@ -26,6 +37,7 @@ const setPost = (title, likes, views, updated_at, comment, image, tag, content) 
 }
 const outputBlogPosts = querySnapshot => {
     querySnapshot.forEach((doc) => {
+        Loader.style.display = 'none'
         const {
             title,
             views,
@@ -93,24 +105,38 @@ const changeRoute = name => {
     // CategoryOutput.innerHTML = ''
     return getBlogByCategory()
 }
-let limit = 2,
-    cLimit = 2
 
-function getDataFromFirebase(limit) {
-    const first = database.collection("blog").orderBy("updated_at")
-    // .limit(2);
+let limit = 3,
+    cLimit = 3,
+    lastVisible
+
+function getDataFromFirebase() {
+    const first = database.collection("blog").orderBy("updated_at", "desc")
+        .limit(3);
+    Loader.style.display = 'block'
     first.get().then((querySnapshot) => {
+        lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1]
+        console.log(lastVisible);
+
         outputBlogPosts(querySnapshot)
+
+
     })
 
 }
 if (window.location.pathname === '/index.html')
     LoadMore.addEventListener('click', () => {
+        Loader.style.display = 'block'
         let next = database.collection("blog")
-            .orderBy("updated_at")
-            .startAt(3)
-            .limit(2);
+            .orderBy("updated_at", "desc")
+            .startAfter(lastVisible)
+            .limit(3);
         next.get().then((querySnapshot) => {
+            if (querySnapshot.docs.length < 4 || querySnapshot.docs.length === 0) {
+                console.log("Last Item");
+                LoadMore.style.display = "none"
+            }
+            lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1]
             outputBlogPosts(querySnapshot)
         })
         cLimit += limit
