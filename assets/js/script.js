@@ -52,7 +52,8 @@ const outputBlogPosts = querySnapshot => {
         const date = new Date(updated_at.seconds * 1000),
             months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
             currentMonth = months[date.getMonth()],
-            currentDate = date.getDate()
+            currentDate = date.getDate(),
+            trunc = content.split(' ').slice(0, 16).join(' ')
         if (window.location.pathname === '/index.html')
             Output.innerHTML += `
                 <div class="col-lg-4 col-md-6">
@@ -70,6 +71,7 @@ const outputBlogPosts = querySnapshot => {
                                 <h4 class="date" id="post-link"><a href="post-page.html" onclick="setPost('${title}', '${likes}', '${views}', '${updated_at.seconds}', '${comments}', '${image}', '${tag}', '${content}')"><b>${title}</b></a></h4>
                                 <h6 class="date author">by Jimoh Abdul-Rahman</h6>
                                 <span class="btn btn-tag btn-sm"> <strong>category:</strong> ${tag}</span>
+                                <p class="trunc">${trunc}...</p>
                                 <ul class="post-footer">
                                     <li><a href="#" onclick="addLike('${title}')"><i class="icon ion-md-heart"></i>${likes}</a></li>
                                     <li><a href="#"><i class="icon ion-md-chatbubbles"></i>${comments}</a></li>

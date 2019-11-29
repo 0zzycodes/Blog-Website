@@ -152,9 +152,11 @@ header {
 .card {
   background: transparent;
   border: 0;
-  height: 200px;
+  max-height: 600px !important;
 }
-
+.trunc {
+  margin: 10px 30px;
+}
 .no-side-padding {
   padding-right: 0px;
   padding-left: 0px;
@@ -298,6 +300,9 @@ header .src-area .src-btn {
   right: 0;
   font-size: 1.8em;
 }
+.navbar-brand {
+  margin-bottom: 10px;
+}
 .blog-area .row div[class^='col'] {
   margin-bottom: 30px;
 }
@@ -407,6 +412,7 @@ header .src-area .src-btn {
   box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14),
     0 7px 12px -5px rgba(33, 33, 33, 0.46);
 }
+
 .blog-info .btn-tag,
 .post-bottom-area .btn-tag {
   background-color: #212121d2 !important;
