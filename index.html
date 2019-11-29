@@ -30,7 +30,7 @@
     <link href="assets/css/responsive.css" rel="stylesheet" />
   </head>
 
-  <body onload="getDataFromFirebase()">
+  <body>
     <nav
       class="navbar navbar-transparent navbar-color-on-scroll fixed-top navbar-expand-lg bg-dark"
       color-on-scroll="100"
@@ -167,6 +167,7 @@
             <div class="prevent">
               <div class="loader">
                 <img id="loader" style="width:50px; height:50px;" src="assets/img/loader.gif" alt="Loader">
+                <p class="date" style="display: none;">No more posts😢</p>
               </div>
                 <a class="load-more-btn" href="#" id="load-more"><b>LOAD MORE</b></a>
             </div>
@@ -252,7 +253,3 @@
   </body>
 </html>
 
-<!-- 
-<style type="text/css">
-	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; }
-</style> -->

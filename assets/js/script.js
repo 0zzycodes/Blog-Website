@@ -1,5 +1,6 @@
 const Output = document.querySelector('#outputs')
 const Loader = document.querySelector('#loader')
+const noPost = document.querySelector('.loader p')
 const LoadMore = document.querySelector('#load-more')
 document.querySelectorAll('.dropdown-menu a').forEach(removeDefault)
 if (window.location.pathname === '/index.html')
@@ -10,11 +11,9 @@ document.querySelectorAll('.footer-section a', '.post-footer a').forEach(removeD
 const categoryItem = document.querySelectorAll('.category-item')
 if (window.location.pathname === '/post-page.html')
     document.querySelector('#blog-tag').addEventListener('click', (e) => {
-        console.log(e);
-
-        let routeName = e.target
-        console.log(routeName);
-
+        let routeName = `${e.target.textContent}`,
+            splice = routeName.split(' ').slice(1).join(' ').toLowerCase()
+        changeRoute(splice)
     })
 
 function removeDefault(item) {
@@ -112,20 +111,14 @@ let limit = 3,
     cLimit = 3,
     lastVisible
 
-function getDataFromFirebase() {
-    const first = database.collection("blog").orderBy("updated_at", "desc")
-        .limit(3);
-    Loader.style.display = 'block'
-    first.get().then((querySnapshot) => {
-        lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1]
-        console.log(lastVisible);
+const first = database.collection("blog").orderBy("updated_at", "desc")
+    .limit(3);
+Loader.style.display = 'block'
+first.get().then((querySnapshot) => {
+    lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1]
+    outputBlogPosts(querySnapshot)
+})
 
-        outputBlogPosts(querySnapshot)
-
-
-    })
-
-}
 if (window.location.pathname === '/index.html')
     LoadMore.addEventListener('click', () => {
         Loader.style.display = 'block'
@@ -134,9 +127,14 @@ if (window.location.pathname === '/index.html')
             .startAfter(lastVisible)
             .limit(3);
         next.get().then((querySnapshot) => {
-            if (querySnapshot.docs.length < 4 || querySnapshot.docs.length === 0) {
+            if (querySnapshot.docs.length < 3 || querySnapshot.docs.length === 0) {
                 console.log("Last Item");
                 LoadMore.style.display = "none"
+                if (querySnapshot.docs.length === 0) {
+                    Loader.style.display = "none";
+                    noPost.style.display = "block";
+                }
+
             }
             lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1]
             outputBlogPosts(querySnapshot)
