@@ -111,17 +111,20 @@ let limit = 3,
     cLimit = 3,
     lastVisible
 
-(function getDataFromFirebase() {
+function getDataFromFirebase() {
     const first = database.collection("blog").orderBy("updated_at", "desc")
         .limit(3);
     Loader.style.display = 'block'
     first.get().then((querySnapshot) => {
         lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1]
+        console.log(lastVisible);
+
         outputBlogPosts(querySnapshot)
+
+
     })
 
-}())
-
+}
 if (window.location.pathname === '/index.html')
     LoadMore.addEventListener('click', () => {
         Loader.style.display = 'block'
