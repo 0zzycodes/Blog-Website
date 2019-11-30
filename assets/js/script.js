@@ -1,42 +1,42 @@
 const Output = document.querySelector('#outputs')
-// const Loader = document.querySelector('#loader')
-// const noPost = document.querySelector('.loader p')
-// const LoadMore = document.querySelector('#load-more')
-// document.querySelectorAll('.dropdown-menu a').forEach(removeDefault)
-// if (window.location.pathname === '/index.html')
-//     document.querySelector('.prevent a').addEventListener('click', e => e.preventDefault())
-// if (window.location.pathname === '/post-page.html')
-//     document.querySelector('.post-bottom-area a').addEventListener('click', e => e.preventDefault())
-// document.querySelectorAll('.footer-section a', '.post-footer a').forEach(removeDefault)
-// const categoryItem = document.querySelectorAll('.category-item')
-// if (window.location.pathname === '/post-page.html')
-//     document.querySelector('#blog-tag').addEventListener('click', (e) => {
-//         let routeName = `${e.target.textContent}`,
-//             splice = routeName.split(' ').slice(1).join(' ').toLowerCase()
-//         changeRoute(splice)
-//     })
+const Loader = document.querySelector('#loader')
+const noPost = document.querySelector('.loader p')
+const LoadMore = document.querySelector('#load-more')
+document.querySelectorAll('.dropdown-menu a').forEach(removeDefault)
+if (window.location.pathname === '/index.html')
+    document.querySelector('.prevent a').addEventListener('click', e => e.preventDefault())
+if (window.location.pathname === '/post-page.html')
+    document.querySelector('.post-bottom-area a').addEventListener('click', e => e.preventDefault())
+document.querySelectorAll('.footer-section a', '.post-footer a').forEach(removeDefault)
+const categoryItem = document.querySelectorAll('.category-item')
+if (window.location.pathname === '/post-page.html')
+    document.querySelector('#blog-tag').addEventListener('click', (e) => {
+        let routeName = `${e.target.textContent}`,
+            splice = routeName.split(' ').slice(1).join(' ').toLowerCase()
+        changeRoute(splice)
+    })
 
-// function removeDefault(item) {
-//     item.addEventListener('click', e => e.preventDefault())
-// }
-// const setPost = (title, likes, views, updated_at, comment, image, tag, content) => {
-//     const post = {
-//         title,
-//         likes,
-//         views,
-//         updated_at,
-//         comment,
-//         image,
-//         tag,
-//         content
-//     }
-//     localStorage.setItem('post', JSON.stringify(post))
-//     localStorage.setItem('title', title)
-//     window.location.pathname = `/post-page.html`
-// }
+function removeDefault(item) {
+    item.addEventListener('click', e => e.preventDefault())
+}
+const setPost = (title, likes, views, updated_at, comment, image, tag, content) => {
+    const post = {
+        title,
+        likes,
+        views,
+        updated_at,
+        comment,
+        image,
+        tag,
+        content
+    }
+    localStorage.setItem('post', JSON.stringify(post))
+    localStorage.setItem('title', title)
+    window.location.pathname = `/post-page.html`
+}
 const outputBlogPosts = querySnapshot => {
-    // Loader.style.display = 'none'
     querySnapshot.forEach((doc) => {
+        Loader.style.display = 'none'
         const {
             title,
             views,
@@ -88,24 +88,24 @@ const outputBlogPosts = querySnapshot => {
     })
 }
 
-// const getBlogByCategory = async () => {
-//     const category = `${await localStorage.getItem('name')}`
-//     let blog = []
-//     database.collection("blog").where("tag", "==", category).get().then(querySnapshot => {
-//         querySnapshot.forEach((doc) => {
-//             blog.push(doc.data())
-//         })
-//         localStorage.setItem('category', JSON.stringify(blog))
-//         window.location.pathname = '/category-page.html'
-//     })
-// }
+const getBlogByCategory = async () => {
+    const category = `${await localStorage.getItem('name')}`
+    let blog = []
+    database.collection("blog").where("tag", "==", category).get().then(querySnapshot => {
+        querySnapshot.forEach((doc) => {
+            blog.push(doc.data())
+        })
+        localStorage.setItem('category', JSON.stringify(blog))
+        window.location.pathname = '/category-page.html'
+    })
+}
 
 
-// const changeRoute = name => {
-//     localStorage.setItem('name', name)
-//     // CategoryOutput.innerHTML = ''
-//     return getBlogByCategory()
-// }
+const changeRoute = name => {
+    localStorage.setItem('name', name)
+    // CategoryOutput.innerHTML = ''
+    return getBlogByCategory()
+}
 
 let limit = 3,
     cLimit = 3,
@@ -114,7 +114,7 @@ let limit = 3,
 function getDataFromFirebase() {
     const first = database.collection("blog").orderBy("updated_at", "desc")
         .limit(3);
-    // Loader.style.display = 'block'
+    Loader.style.display = 'block'
     first.get().then((querySnapshot) => {
         lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1]
         console.log(lastVisible);
@@ -125,25 +125,25 @@ function getDataFromFirebase() {
     })
 
 }
-// if (window.location.pathname === '/index.html')
-//     LoadMore.addEventListener('click', () => {
-//         Loader.style.display = 'block'
-//         let next = database.collection("blog")
-//             .orderBy("updated_at", "desc")
-//             .startAfter(lastVisible)
-//             .limit(3);
-//         next.get().then((querySnapshot) => {
-//             if (querySnapshot.docs.length < 3 || querySnapshot.docs.length === 0) {
-//                 console.log("Last Item");
-//                 LoadMore.style.display = "none"
-//                 if (querySnapshot.docs.length === 0) {
-//                     Loader.style.display = "none";
-//                     noPost.style.display = "block";
-//                 }
+if (window.location.pathname === '/index.html')
+    LoadMore.addEventListener('click', () => {
+        Loader.style.display = 'block'
+        let next = database.collection("blog")
+            .orderBy("updated_at", "desc")
+            .startAfter(lastVisible)
+            .limit(3);
+        next.get().then((querySnapshot) => {
+            if (querySnapshot.docs.length < 3 || querySnapshot.docs.length === 0) {
+                console.log("Last Item");
+                LoadMore.style.display = "none"
+                if (querySnapshot.docs.length === 0) {
+                    Loader.style.display = "none";
+                    noPost.style.display = "block";
+                }
 
-//             }
-//             lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1]
-//             outputBlogPosts(querySnapshot)
-//         })
-//         cLimit += limit
-//     })
+            }
+            lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1]
+            outputBlogPosts(querySnapshot)
+        })
+        cLimit += limit
+    })
