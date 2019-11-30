@@ -36,56 +36,56 @@ const Output = document.querySelector('#outputs')
 // }
 const outputBlogPosts = querySnapshot => {
     // Loader.style.display = 'none'
-    // querySnapshot.forEach((doc) => {
-    //     const {
-    //         title,
-    //         views,
-    //         likes,
-    //         comments,
-    //         content,
-    //         image,
-    //         tag,
-    //         updated_at
-    //     } = doc.data()
+    querySnapshot.forEach((doc) => {
+        const {
+            title,
+            views,
+            likes,
+            comments,
+            content,
+            image,
+            tag,
+            updated_at
+        } = doc.data()
 
-    //     const date = new Date(updated_at.seconds * 1000),
-    //         months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-    //         currentMonth = months[date.getMonth()],
-    //         currentDate = date.getDate(),
-    //         trunc = content.split(' ').slice(0, 16).join(' ')
-    //     if (window.location.pathname === '/index.html')
-    //         Output.innerHTML += `
-    //             <div class="col-lg-4 col-md-6">
-    //                 <div class="card h-100">
-    //                     <div class="single-post post-style-1">
-    //                         <div class="blog-image">
-    //                             <img src=${image}>
-    //                             <button class="btn btn-primary btn-md date-created">
-    //                                 ${currentDate}
-    //                                 <br>
-    //                                 ${currentMonth}
-    //                             </button>
-    //                             </div>
-    //                             <div class="blog-info">
-    //                             <h4 class="date" id="post-link"><a href="post-page.html" onclick="setPost('${title}', '${likes}', '${views}', '${updated_at.seconds}', '${comments}', '${image}', '${tag}', '${content}')"><b>${title}</b></a></h4>
-    //                             <h6 class="date author">by Jimoh Abdul-Rahman</h6>
-    //                             <span class="btn btn-tag btn-sm"> <strong>category:</strong> ${tag}</span>
-    //                             <p class="trunc">${trunc}...</p>
-    //                             <ul class="post-footer">
-    //                                 <li><a href="#" onclick="addLike('${title}')"><i class="icon ion-md-heart"></i>${likes}</a></li>
-    //                                 <li><a href="#"><i class="icon ion-md-chatbubbles"></i>${comments}</a></li>
-    //                             </ul>
-    //                         </div>
-    //                     </div>
-    //                 </div>
-    //             </div>
-    //             `
-    //     const postATag = document.querySelectorAll('.single-post a')
-    //     postATag.forEach(item => {
-    //         item.addEventListener('click', e => e.preventDefault())
-    //     })
+        const date = new Date(updated_at.seconds * 1000),
+            months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+            currentMonth = months[date.getMonth()],
+            currentDate = date.getDate(),
+            trunc = content.split(' ').slice(0, 16).join(' ')
+        if (window.location.pathname === '/index.html' || window.location.pathname === '/')
+            Output.innerHTML += `
+                <div class="col-lg-4 col-md-6">
+                    <div class="card h-100">
+                        <div class="single-post post-style-1">
+                            <div class="blog-image">
+                                <img src=${image}>
+                                <button class="btn btn-primary btn-md date-created">
+                                    ${currentDate}
+                                    <br>
+                                    ${currentMonth}
+                                </button>
+                                </div>
+                                <div class="blog-info">
+                                <h4 class="date" id="post-link"><a href="post-page.html" onclick="setPost('${title}', '${likes}', '${views}', '${updated_at.seconds}', '${comments}', '${image}', '${tag}', '${content}')"><b>${title}</b></a></h4>
+                                <h6 class="date author">by Jimoh Abdul-Rahman</h6>
+                                <span class="btn btn-tag btn-sm"> <strong>category:</strong> ${tag}</span>
+                                <p class="trunc">${trunc}...</p>
+                                <ul class="post-footer">
+                                    <li><a href="#" onclick="addLike('${title}')"><i class="icon ion-md-heart"></i>${likes}</a></li>
+                                    <li><a href="#"><i class="icon ion-md-chatbubbles"></i>${comments}</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                `
+        const postATag = document.querySelectorAll('.single-post a')
+        postATag.forEach(item => {
+            item.addEventListener('click', e => e.preventDefault())
+        })
 
-    // })
+    })
 }
 
 // const getBlogByCategory = async () => {
@@ -118,57 +118,8 @@ function getDataFromFirebase() {
     first.get().then((querySnapshot) => {
         lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1]
         console.log(lastVisible);
-        // outputBlogPosts(querySnapshot)
-        querySnapshot.forEach((doc) => {
-            const {
-                title,
-                views,
-                likes,
-                comments,
-                content,
-                image,
-                tag,
-                updated_at
-            } = doc.data()
 
-            const date = new Date(updated_at.seconds * 1000),
-                months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                currentMonth = months[date.getMonth()],
-                currentDate = date.getDate(),
-                trunc = content.split(' ').slice(0, 16).join(' ')
-            if (window.location.pathname === '/index.html')
-                Output.innerHTML += `
-                    <div class="col-lg-4 col-md-6">
-                        <div class="card h-100">
-                            <div class="single-post post-style-1">
-                                <div class="blog-image">
-                                    <img src=${image}>
-                                    <button class="btn btn-primary btn-md date-created">
-                                        ${currentDate}
-                                        <br>
-                                        ${currentMonth}
-                                    </button>
-                                    </div>
-                                    <div class="blog-info">
-                                    <h4 class="date" id="post-link"><a href="post-page.html" onclick="setPost('${title}', '${likes}', '${views}', '${updated_at.seconds}', '${comments}', '${image}', '${tag}', '${content}')"><b>${title}</b></a></h4>
-                                    <h6 class="date author">by Jimoh Abdul-Rahman</h6>
-                                    <span class="btn btn-tag btn-sm"> <strong>category:</strong> ${tag}</span>
-                                    <p class="trunc">${trunc}...</p>
-                                    <ul class="post-footer">
-                                        <li><a href="#" onclick="addLike('${title}')"><i class="icon ion-md-heart"></i>${likes}</a></li>
-                                        <li><a href="#"><i class="icon ion-md-chatbubbles"></i>${comments}</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    `
-            const postATag = document.querySelectorAll('.single-post a')
-            postATag.forEach(item => {
-                item.addEventListener('click', e => e.preventDefault())
-            })
-
-        })
+        outputBlogPosts(querySnapshot)
 
 
     })
