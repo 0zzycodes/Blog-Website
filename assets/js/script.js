@@ -3,7 +3,7 @@ const Loader = document.querySelector('#loader')
 const noPost = document.querySelector('.loader p')
 const LoadMore = document.querySelector('#load-more')
 document.querySelectorAll('.dropdown-menu a').forEach(removeDefault)
-if (window.location.pathname === '/index.html')
+if (window.location.pathname === '/index.html' || window.location.pathname === '/')
     document.querySelector('.prevent a').addEventListener('click', e => e.preventDefault())
 if (window.location.pathname === '/post-page.html')
     document.querySelector('.post-bottom-area a').addEventListener('click', e => e.preventDefault())
@@ -117,15 +117,11 @@ function getDataFromFirebase() {
     Loader.style.display = 'block'
     first.get().then((querySnapshot) => {
         lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1]
-        console.log(lastVisible);
-
         outputBlogPosts(querySnapshot)
-
-
     })
 
 }
-if (window.location.pathname === '/index.html')
+if (window.location.pathname === '/index.html' || window.location.pathname === '/')
     LoadMore.addEventListener('click', () => {
         Loader.style.display = 'block'
         let next = database.collection("blog")
@@ -134,7 +130,6 @@ if (window.location.pathname === '/index.html')
             .limit(3);
         next.get().then((querySnapshot) => {
             if (querySnapshot.docs.length < 3 || querySnapshot.docs.length === 0) {
-                console.log("Last Item");
                 LoadMore.style.display = "none"
                 if (querySnapshot.docs.length === 0) {
                     Loader.style.display = "none";
