@@ -15,6 +15,7 @@ if (window.location.pathname === '/post-page.html')
             splice = routeName.split(' ').slice(1).join(' ').toLowerCase()
         changeRoute(splice)
     })
+let IP;
 
 function removeDefault(item) {
     item.addEventListener('click', e => e.preventDefault())
@@ -34,7 +35,12 @@ const setPost = (title, likes, views, updated_at, comment, image, tag, content) 
     localStorage.setItem('title', title)
     window.location.pathname = `/post-page.html`
 }
+
+function getIP(json) {
+    IP = json.ip
+}
 const outputBlogPosts = querySnapshot => {
+    let tit = []
     querySnapshot.forEach((doc) => {
         Loader.style.display = 'none'
         const {
@@ -47,7 +53,7 @@ const outputBlogPosts = querySnapshot => {
             tag,
             updated_at
         } = doc.data()
-
+        tit.push(title)
         const date = new Date(updated_at.seconds * 1000),
             months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
             currentMonth = months[date.getMonth()],
@@ -72,22 +78,52 @@ const outputBlogPosts = querySnapshot => {
                                 <span class="btn btn-tag btn-sm"> <strong>category:</strong> ${tag}</span>
                                 <p class="trunc">${trunc}...</p>
                                 <ul class="post-footer">
-                                    <li><a href="#" onclick="addLike('${title}')"><i class="icon ion-md-heart"></i>${likes}</a></li>
-                                    <li><a href="#"><i class="icon ion-md-chatbubbles"></i>${comments}</a></li>
+                                <li><a href="#"><i class="icon ion-md-chatbubbles"></i>${comments}</a></li>
+                                    <li><a href="#" id="like"><i class="icon ion-md-eye"></i>${views}</a></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
                 `
+        // database.collection("blog_views").get().then((querySnapshot) => {
+        //     querySnapshot.forEach((doc) => {
+        //         const likeTag = document.querySelectorAll(".blog-info #like .icon")
+        //         const {
+        //             blogId
+        //         } = doc.data()
+        //         if (blogId === title) {
+        //             likeTag.forEach(each => each.classList.add("like-icon"))
+        //         }
+        //     })
+        // })
         const postATag = document.querySelectorAll('.single-post a')
         postATag.forEach(item => {
             item.addEventListener('click', e => e.preventDefault())
         })
-
     })
-}
 
+}
+const addLike = (id) => {
+    // console.log(IP);
+    const like = {
+        userId: IP,
+        blogId: id
+    }
+    const likeTag = document.querySelectorAll(".blog-info #like .icon")
+    likeTag.forEach(each => each.classList.add("like-icon"))
+    const documentRef = database.collection("blog_likes").doc(id)
+
+    documentRef.get().then(function (doc) {
+        if (doc.exists) {
+            return console.log('Cant like more than once');
+        } else {
+            return database.collection("blog_likes").doc(id).set(like)
+        }
+    }).catch(function (error) {
+        console.log("Error getting document:", error);
+    });
+}
 const getBlogByCategory = async () => {
     const category = `${await localStorage.getItem('name')}`
     let blog = []
@@ -119,7 +155,6 @@ function getDataFromFirebase() {
         lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1]
         outputBlogPosts(querySnapshot)
     })
-
 }
 if (window.location.pathname === '/index.html' || window.location.pathname === '/')
     LoadMore.addEventListener('click', () => {

@@ -2,8 +2,8 @@ const commentArea = document.querySelector('#comment-output');
 const commentNum = document.querySelector('.comment-num');
 (async function () {
     const blogTitle = localStorage.getItem('title')
-    const blogTitleString = JSON.stringify(blogTitle)
-    Pusher.logToConsole = true;
+    // const blogTitleString = JSON.stringify(blogTitle)
+    // Pusher.logToConsole = true;
     let serverUrl = ' https://jimoh-blog-backend.herokuapp.com/comment',
         oldComment = [],
         numComment = 0,
