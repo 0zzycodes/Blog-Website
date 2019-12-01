@@ -39,8 +39,8 @@ const getCategoryBlogs = () => {
                                         <span class="btn btn-tag btn-sm"> <strong>category:</strong> ${tag}</span>
                                         <p class="trunc">${trunc}...</p>
                                         <ul class="post-footer">
-                                            <li><a href="#" onclick="addLike('${title}')"><i class="icon ion-md-heart"></i>${likes}</a></li>
-                                            <li><a href="#"><i class="icon ion-md-chatbubbles"></i>${comments}</a></li>
+                                        <li><a href="#"><i class="icon ion-md-chatbubbles"></i>${comments}</a></li>
+                                        <li><a href="#" onclick="addLike('${title}')"><i class="icon ion-md-eye"></i>${views}</a></li>
                                         </ul>
                                     </div>
                                 </div>
