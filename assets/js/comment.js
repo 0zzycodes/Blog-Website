@@ -2,8 +2,6 @@ const commentArea = document.querySelector('#comment-output');
 const commentNum = document.querySelector('.comment-num');
 (async function () {
     const blogTitle = localStorage.getItem('title')
-    // const blogTitleString = JSON.stringify(blogTitle)
-    // Pusher.logToConsole = true;
     let serverUrl = ' https://jimoh-blog-backend.herokuapp.com/comment',
         oldComment = [],
         numComment = 0,
@@ -17,11 +15,9 @@ const commentNum = document.querySelector('.comment-num');
 
     channel.bind('comment', newCommentReceived);
     commentForm.addEventListener('submit', addNewComment);
-
     const docRef = database.collection("blog_comments").doc(blogTitle);
 
     function oldCommentReceived(firebaseData) {
-
         commentNum.innerHTML = `<b>COMMENTS(${firebaseData.length})</b>`
         firebaseData.forEach(item => {
             const {
@@ -66,9 +62,6 @@ const commentNum = document.querySelector('.comment-num');
             if (doc.exists) {
                 oldComment = doc.data().comments
                 oldComment.push(data)
-
-                console.log("old", oldComment);
-
                 numComment = oldComment.length
                 commentNum.innerHTML = `<b>COMMENT(${numComment})</b>`
                 const updater = database.collection("blog_comments").doc(blogTitle)
@@ -77,7 +70,6 @@ const commentNum = document.querySelector('.comment-num');
                 })
 
             } else {
-                console.log("No such document!");
                 database.collection("blog_comments").doc(blogTitle).set(newComment)
             }
         }).catch(function (error) {
@@ -108,8 +100,6 @@ const commentNum = document.querySelector('.comment-num');
             <p class="comment-text">${comment}</p>
         </div>
         `
-
-
     }
 
     function addNewComment(event) {
@@ -130,7 +120,6 @@ const commentNum = document.querySelector('.comment-num');
             .then(response => response.json())
             .then(response => {
                 console.log('Comment successful');
-
             })
     }
 })();

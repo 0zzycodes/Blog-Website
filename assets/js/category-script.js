@@ -3,7 +3,6 @@ const categoryTitle = document.querySelector('#category-title')
 
 const getCategoryBlogs = () => {
     categoryTitle.innerHTML = localStorage.getItem('name').toUpperCase()
-
     const categoryBlogs = JSON.parse(localStorage.getItem('category'))
     categoryBlogs.forEach((doc) => {
         const {
@@ -48,14 +47,4 @@ const getCategoryBlogs = () => {
                         </div>
                         `
     })
-    // const {
-    //     title,
-    //     views,
-    //     likes,
-    //     comments,
-    //     content,
-    //     image,
-    //     tag
-    // } = categoryBlogs
-
 }

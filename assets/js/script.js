@@ -81,49 +81,19 @@ const outputBlogPosts = querySnapshot => {
                                 <p class="trunc">${trunc}...</p>
                                 <ul class="post-footer">
                                 <li><a href="#"><i class="icon ion-md-chatbubbles"></i>${comments}</a></li>
-                                    <li><a href="#" id="like"><i class="icon ion-md-eye"></i>${views}</a></li>
+                                    <li><a href="#" id="views"><i class="icon ion-md-eye"></i>${views}</a></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
                 `
-        // database.collection("blog_views").get().then((querySnapshot) => {
-        //     querySnapshot.forEach((doc) => {
-        //         const likeTag = document.querySelectorAll(".blog-info #like .icon")
-        //         const {
-        //             blogId
-        //         } = doc.data()
-        //         if (blogId === title) {
-        //             likeTag.forEach(each => each.classList.add("like-icon"))
-        //         }
-        //     })
-        // })
         const postATag = document.querySelectorAll('.single-post a')
         postATag.forEach(item => {
             item.addEventListener('click', e => e.preventDefault())
         })
     })
 
-}
-const addLike = (id) => {
-    const like = {
-        userId: Ip,
-        blogId: id
-    }
-    const likeTag = document.querySelectorAll(".blog-info #like .icon")
-    likeTag.forEach(each => each.classList.add("like-icon"))
-    const documentRef = database.collection("blog_likes").doc(id)
-
-    documentRef.get().then(function (doc) {
-        if (doc.exists) {
-            return console.log('Cant like more than once');
-        } else {
-            return database.collection("blog_likes").doc(id).set(like)
-        }
-    }).catch(function (error) {
-        console.log("Error getting document:", error);
-    });
 }
 const getBlogByCategory = async () => {
     const category = `${await localStorage.getItem('name')}`
@@ -137,10 +107,8 @@ const getBlogByCategory = async () => {
     })
 }
 
-
 const changeRoute = name => {
     localStorage.setItem('name', name)
-    // CategoryOutput.innerHTML = ''
     return getBlogByCategory()
 }
 
