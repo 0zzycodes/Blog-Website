@@ -16,13 +16,13 @@ if (window.location.pathname === '/post-page.html')
             splice = routeName.split(' ').slice(1).join(' ').toLowerCase()
         changeRoute(splice)
     })
-let Ip,
-    blog_views = [],
-    numViews = blog_views.length
+
 
 function removeDefault(item) {
     item.addEventListener('click', e => e.preventDefault())
 }
+
+
 const setPost = (title, likes, views, updated_at, comment, image, tag, content) => {
     const post = {
         title,
@@ -37,27 +37,10 @@ const setPost = (title, likes, views, updated_at, comment, image, tag, content) 
     localStorage.setItem('post', JSON.stringify(post))
     localStorage.setItem('title', title)
     window.location.pathname = `/post-page.html`
-    blog_views.push(Ip)
-    const view = {
-        views: blog_views,
-        id: title
-    }
-    database.collection("blog_views").doc(title).set(view)
 
-    database.collection("blog").where("title", "==", title).get().then(querySnapshot => {
-        querySnapshot.forEach((doc) => {
-            numViews = doc.data().views
-            const updater = database.collection("blog").doc(doc.id)
-            updater.update({
-                views: numViews
-            })
-        })
-    })
 }
 
-function getIP(json) {
-    Ip = json.ip
-}
+
 const outputBlogPosts = querySnapshot => {
     let tit = []
     querySnapshot.forEach((doc) => {
